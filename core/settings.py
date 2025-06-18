@@ -13,7 +13,7 @@ SECRET_KEY = 'django-insecure-baw4whx*zf806x+*b^gqs)^lhkjp^2=sx8@&!dh@f9k0hd8gmq
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['smog-video-dowloads.onrender.com', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['smog-video-downloads.onrender.com', 'localhost', '127.0.0.1']
 
 
 # Application definition
