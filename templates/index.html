@@ -1,0 +1,28 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>smog</title>
+    <link rel="stylesheet" href="{%static 'style.css'%}">
+</head>
+<body>
+    <div>
+
+        <h1>SMOG downloads</h1>
+        
+        <form action="" method="POST"> {% csrf_token %}
+            <input type="text" name="url" placeholder="video url" required>
+            <button type="submit">search</button>
+        </form>
+
+        <div>
+            {% if info %}
+                <p>{{ info }}</p>
+                <a href="{% url 'download' video_id %}">dowload</a>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>
