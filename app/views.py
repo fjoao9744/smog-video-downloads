@@ -8,6 +8,7 @@ def index(request):
         url = request.POST.get("url")
         
         ydl_opts = {
+            'cookiefile': "cookies.txt",
             'format': 'best',
             'outtmpl': 'downloads/%(id)s.%(ext)s',
         }
