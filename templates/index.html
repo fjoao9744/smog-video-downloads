@@ -5,24 +5,43 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>smog</title>
-    <link rel="stylesheet" href="{%static 'style.css'%}">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
 </head>
-<body>
-    <div>
+<body class="w-full h-screen flex justify-center">
+    <div class="fixed inset-0 bg-gradient-to-t from-blue-100 via-blue-200 via-blue-300 to-blue-400 -z-10"></div>
 
-        <h1>SMOG downloads</h1>
-        
-        <form action="" method="POST"> {% csrf_token %}
-            <input type="text" name="url" placeholder="video url" required>
-            <button type="submit">search</button>
+    <main class="origin-top-left bg-white shadow-xl
+    border-2 border-blue-300 rounded-xl
+    w-80 h-64
+    sm:w-[490px] sm:h-[270px]
+    lg:w-[550px] lg:h-[270px]
+    xl:w-[700px] xl:h-[320px] xl:mt-14
+    flex flex-col
+    py-5 px-2 mt-20
+    ">
+        <div class="flex flex-row justify-center p-4 items-center xl:scale-125">
+            <img src="{% static 'media/smog.png' %}" alt="" class="w-20 h-14 sm:w-32 sm:h-24 lg:w-24 lg:h-24 p-0 m-0" id="smog-image">
+            <h1 class="text-3xl text-bold p-0 m-0 sm:text-4xl lg:whitespace-nowrap">SMOG downloads</h1>
+        </div>
+    
+        <form action="" method="POST" class="flex flex-col sm:flex-row justify-center p-4 sm:items-center my-0 xl:my-5"> {% csrf_token %}
+            <input type="text" name="url" placeholder="video url" class="border-2 border-blue-200 rounded p-1 sm:h-14 text-sm sm:text-base
+            lg:w-96 shadow-md
+            transition duration-200 ease-in-out
+            focus:bg-blue-200 focus:outline-none" required>
+            <button type="submit" class="border-2 border-blue-200 rounded-xl sm:rounded-md my-5 p-2 sm:p-4 sm:h-14 shadow-md
+            transition duration-300 ease-in-out
+            hover:bg-blue-200 focus:outline-none hover:text-blue-600 hover:shadow-xl">search</button>
         </form>
 
-        <div>
-            {% if info %}
-                <p>{{ info }}</p>
-                <a href="{% url 'download' video_id %}">dowload</a>
-            {% endif %}
+        {% if info %}
+        <div class="xl:mt-10 w-full bg-white border-2 border-blue-300 rounded-xl flex flex-col space-y-2 items-center justify-center p-4">
+            <p class="text-xs sm:text-base text-center text-blue-400 mt-4">{{ info }}</p>
+            <img src="{{ thumb }}" alt="thumb image" class="scale-95 border-4 border-blue-200 shadow-xl rounded-xl"> 
+            <a href="{% url 'download' video_id %}" class="underline cursor-pointer hover:text-blue-500 transition duration-500 easy-in-out">download</a>
         </div>
-    </div>
+        {% endif %}
+    </main>
 </body>
 </html>

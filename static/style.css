@@ -1,14 +1,15 @@
+@font-face {
+  font-family: 'LexendMega';
+  src: url('/static/fonts/LexendMega-VariableFont_wght.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
 * {
-    position: relative;
+    font-family: 'LexendMega';
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
 }
 
-body {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-div {
-    display: flex;
-    flex-direction: column;
+#smog-image {
+    transform: scaleX(-1);
 }

@@ -9,8 +9,9 @@ def index(request):
         
         ydl_opts = {
             'cookiefile': "cookies.txt",
+            'writethumbnail': True,
             'format': 'best',
-            'outtmpl': 'downloads/%(id)s.%(ext)s',
+            'outtmpl': 'static/media/videos/%(id)s.%(ext)s',
         }
 
         with YoutubeDL(ydl_opts) as ydl:
@@ -20,7 +21,7 @@ def index(request):
             
             video_id = info.get('id')
         
-        return render(request, "index.html", {"info":info.get("title"), "video_id":video_id})
+        return render(request, "index.html", {"info":info.get("title"), "video_id":video_id, "thumb": f"static/media/videos/{video_id}.webp"})
     
     return render(request, "index.html")
         
