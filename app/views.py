@@ -16,7 +16,7 @@ def index(request):
         with YoutubeDL(ydl_opts) as ydl:
             info = ydl.extract_info(url)
             if info is None:
-                return HttpResponse("Erro: não foi possível baixar o vídeo.", status=500)
+                return HttpResponse("Erro: Unable to download video.", status=500)
             
             video_id = info.get('id')
         
@@ -30,5 +30,5 @@ def download(request, video_id):
             filepath = os.path.join('downloads', file)
             f = open(filepath, 'rb') 
             return FileResponse(f, as_attachment=True, filename=file)
-    return HttpResponse("Arquivo não encontrado.", status=404)
+    return HttpResponse("File not found.", status=404)
     

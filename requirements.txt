@@ -3,3 +3,4 @@ yt-dlp
 gunicorn
 requests
 python-dotenv
+whitenoise
