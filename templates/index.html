@@ -8,40 +8,88 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="{% static 'style.css' %}">
 </head>
-<body class="w-full h-screen flex justify-center">
-    <div class="fixed inset-0 bg-gradient-to-t from-blue-100 via-blue-200 via-blue-300 to-blue-400 -z-10"></div>
+<body class="w-full h-screen flex justify-center text-black">
 
-    <main class="origin-top-left bg-white shadow-xl
-    border-2 border-blue-300 rounded-xl
+    <!-- Gradiente modo claro -->
+    <div class="fixed inset-0 bg-gradient-to-t from-blue-100 via-blue-200 via-blue-300 to-blue-400 -z-10
+    transition-opacity duration-500 dark:opacity-0"></div>
+  
+    <!-- Gradiente modo dark -->
+    <div class="fixed inset-0 bg-gradient-to-t from-black via-violet-900 via-violet-700 to-violet-600 -z-10
+    transition-opacity duration-500 opacity-0 dark:opacity-100"></div>
+
+    <button id="toggleDark" class="transition duration-500 fixed right-0 top-0 p-1 bg-blue-200 dark:bg-violet-200 rounded m-2 outline-none">🌙</button>
+    <main class="origin-top-left bg-white
+    border-2 border-blue-300 rounded-xl dark:border-violet-700
     w-80 h-64
     sm:w-[490px] sm:h-[270px]
     lg:w-[550px] lg:h-[270px]
     xl:w-[700px] xl:h-[320px] xl:mt-14
     flex flex-col
     py-5 px-2 mt-20
+    transition duration-500 dark:bg-black/60
+    [box-shadow:0_10px_15px_rgba(0,0,0,0.3)] dark:[box-shadow:0_10px_15px_rgba(255,255,255,0.2)]
     ">
         <div class="flex flex-row justify-center p-4 items-center xl:scale-125">
-            <img src="{% static 'media/smog.png' %}" alt="" class="w-20 h-14 sm:w-32 sm:h-24 lg:w-24 lg:h-24 p-0 m-0" id="smog-image">
-            <h1 class="text-3xl text-bold p-0 m-0 sm:text-4xl lg:whitespace-nowrap">SMOG downloads</h1>
+            <img src="{% static 'media/smog.png' %}" alt="" class="w-20 h-14 sm:w-32 sm:h-24 lg:w-24 lg:h-24 p-0 m-0
+            transition duration-500 dark:contrast-125 dark:brightness-125 dark:drop-shadow-[0_0_2px_rgba(255,255,255,255.8)]" id="smog-image">
+
+            <h1 class="text-3xl text-bold p-0 m-0 sm:text-4xl lg:whitespace-nowrap 
+            transition-all duration-500 dark:text-white
+            dark:[text-shadow:2px_2px_4px_rgba(255,255,255,0.3)] [text-shadow:2px_2px_4px_rgba(0,0,0,0.3)]">SMOG downloads</h1>
         </div>
     
         <form action="" method="POST" class="flex flex-col sm:flex-row justify-center p-4 sm:items-center my-0 xl:my-5"> {% csrf_token %}
             <input type="text" name="url" placeholder="video url" class="border-2 border-blue-200 rounded p-1 sm:h-14 text-sm sm:text-base
-            lg:w-96 shadow-md
-            transition duration-200 ease-in-out
-            focus:bg-blue-200 focus:outline-none" required>
-            <button type="submit" class="border-2 border-blue-200 rounded-xl sm:rounded-md my-5 p-2 sm:p-4 sm:h-14 shadow-md
-            transition duration-300 ease-in-out
-            hover:bg-blue-200 focus:outline-none hover:text-blue-600 hover:shadow-xl">search</button>
+            lg:w-96 shadow-md dark:border-violet-400 dark:bg-violet-950 dark:text-white
+            transition-all duration-500 hover:duration-200 ease-in-out
+            focus:bg-blue-200 focus:outline-none dark:focus:bg-violet-400 dark:focus:placeholder-violet-600
+            dark:[text-shadow:2px_2px_4px_rgba(255,255,255,0.2)] [text-shadow:2px_2px_4px_rgba(0,0,0,0.3)]" required>
+
+            <button type="submit" class="border-2 border-blue-200 rounded-xl sm:rounded-md my-5 p-2 sm:p-4 sm:h-14 shadow-md bg-white
+            transition duration-500 hover:duration-300 ease-in-out dark:border-violet-400
+            hover:bg-blue-200 focus:outline-none hover:text-blue-600 hover:shadow-xl 
+            dark:hover:text-violet-600 dark:bg-violet-950 dark:text-white dark:hover:bg-violet-400
+            dark:[text-shadow:2px_2px_4px_rgba(255,255,255,0.2)] [text-shadow:2px_2px_4px_rgba(0,0,0,0.3)]">search</button>
         </form>
 
         {% if info %}
-        <div class="xl:mt-10 w-full bg-white border-2 border-blue-300 rounded-xl flex flex-col space-y-2 items-center justify-center p-4">
-            <p class="text-xs sm:text-base text-center text-blue-400 mt-4">{{ info }}</p>
-            <img src="{{ thumb }}" alt="thumb image" class="scale-95 border-4 border-blue-200 shadow-xl rounded-xl"> 
-            <a href="{% url 'download' video_id %}" class="underline cursor-pointer hover:text-blue-500 transition duration-500 easy-in-out">download</a>
+        <div class="xl:mt-10 w-full bg-white border-2 border-blue-300 rounded-xl flex flex-col space-y-2 items-center justify-center p-4
+        transition-all duration-500 dark:bg-black/60 dark:border-violet-700">
+            <p class="text-xs sm:text-base text-center text-blue-400 mt-4
+            transition-all duration-500 dark:text-violet-violet-400 dark:text-violet-400">{{ info }}</p>
+            <img src="{{ thumb }}" alt="thumb image" class="scale-95 border-4 border-blue-200 transtion-all duration-500 dark:border-violet-800 shadow-xl rounded-xl dark:text-white"> 
+            <a href="{% url 'download' video_id %}" class="underline cursor-pointer hover:text-blue-500 transition duration-500 easy-in-out dark:text-white">download</a>
         </div>
         {% endif %}
     </main>
+
+    <script>
+    tailwind.config = {
+        darkMode: 'class',
+    }
+
+    const btn = document.getElementById('toggleDark');
+    const body = document.body;
+
+    if (localStorage.getItem("theme") === "dark") {
+        body.classList.add('dark');
+        btn.innerText = "🌞";
+    } else {
+        btn.innerText = "🌙";
+    }
+
+    btn.addEventListener('click', () => {
+      body.classList.toggle('dark');
+      if (btn.innerText === "🌞") {
+        btn.innerText = "🌙";
+        localStorage.setItem("theme", "light")
+
+      } else {
+        btn.innerText = "🌞";
+        localStorage.setItem("theme", "dark")
+      }
+    });
+    </script>
 </body>
 </html>

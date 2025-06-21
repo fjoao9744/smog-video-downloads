@@ -26,9 +26,9 @@ def index(request):
     return render(request, "index.html")
         
 def download(request, video_id):
-    for file in os.listdir('downloads'):
+    for file in os.listdir('static/media/videos'):
         if file.startswith(video_id):
-            filepath = os.path.join('downloads', file)
+            filepath = os.path.join('static/media/videos', file)
             f = open(filepath, 'rb') 
             return FileResponse(f, as_attachment=True, filename=file)
     return HttpResponse("File not found.", status=404)
