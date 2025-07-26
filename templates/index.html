@@ -53,15 +53,48 @@
             dark:[text-shadow:2px_2px_4px_rgba(255,255,255,0.2)] [text-shadow:2px_2px_4px_rgba(0,0,0,0.3)]">search</button>
         </form>
 
-        {% if info %}
-        <div class="xl:mt-10 w-full bg-white border-2 border-blue-300 rounded-xl flex flex-col space-y-2 items-center justify-center p-4
-        transition-all duration-500 dark:bg-black/60 dark:border-violet-700">
-            <p class="text-xs sm:text-base text-center text-blue-400 mt-4
-            transition-all duration-500 dark:text-violet-violet-400 dark:text-violet-400">{{ info }}</p>
-            <img src="{{ thumb }}" alt="thumb image" class="scale-95 border-4 border-blue-200 transtion-all duration-500 dark:border-violet-800 shadow-xl rounded-xl dark:text-white"> 
-            <a href="{% url 'download' video_id %}" class="underline cursor-pointer hover:text-blue-500 transition duration-500 easy-in-out dark:text-white">download</a>
-        </div>
-        {% endif %}
+        {% if task_id %}
+    <div id="status" class="flex items-center justify-center">
+        <p id="loading" class="my-5 dark:text-white">Processing video, await please<span id="dots"></span></p>
+    </div>
+
+    <script>
+        const taskId = "{{ task_id }}";
+        const statusDiv = document.getElementById("status");
+
+        function checkStatus() {
+            fetch(`/task-status/${taskId}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === "finished") {
+                        if (intervalID) {
+                            clearInterval(intervalID)
+                        }
+                        statusDiv.innerHTML = `
+                        <div class="xl:mt-10 w-full bg-white border-2 border-blue-300 rounded-xl flex flex-col space-y-2 items-center justify-center p-4
+                        transition-all duration-500 dark:bg-black/60 dark:border-violet-700">
+                            <p class="text-xs sm:text-base text-center text-blue-400 mt-4
+                            transition-all duration-500 dark:text-violet-violet-400 dark:text-violet-400"><strong>${data.title}</strong> está pronto!</p>
+                            <img src="/static/media/videos/${data.video_id}.webp" alt="Thumbnail" width="300"class="scale-95 border-4 border-blue-200 transtion-all duration-500 dark:border-violet-800 shadow-xl rounded-xl dark:text-white"><br>
+                            <a href="/download/${data.video_id}" class="underline cursor-pointer hover:text-blue-500 transition duration-500 easy-in-out dark:text-white">Download</a>
+                        </div>
+                        `;
+                    } else if (data.status === "error") {
+                        statusDiv.innerHTML = `<p style="color:red">Erro: ${data.message}</p>`;
+                    } else {
+
+                        setTimeout(checkStatus, 2000);
+                    }
+                })
+                .catch(error => {
+                    statusDiv.innerHTML = `<p style="color:red">Internal error.</p>`;
+                    console.error(error);
+                });
+        }
+
+        checkStatus();
+    </script>
+    {% endif %}
     </main>
 
     <script>
@@ -90,6 +123,16 @@
         localStorage.setItem("theme", "dark")
       }
     });
+
+    // loading animation
+
+    const dotsEl = document.getElementById("dots");
+    let dotCount = 0;
+
+    let intervalID = setInterval(() => {
+    dotCount = (dotCount + 1) % 4;
+    dotsEl.textContent = ".".repeat(dotCount);
+    }, 500); 
     </script>
 </body>
 </html>

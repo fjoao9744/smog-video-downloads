@@ -92,7 +92,15 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-STATICFILES_DIRS = [ BASE_DIR / "static" ] # global
+STATICFILES_DIRS = [ BASE_DIR / "static" ]
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+CELERY_BROKER_URL = 'amqp://guest:guest@rabbitmq:5672//'
+CELERY_RESULT_BACKEND = 'redis://redis:6379/0'
+
+# CELERY_BROKER_URL = 'amqp://guest:guest@localhost:5672//'   # RabbitMQ local
+# CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'         # Redis local
+
+# celery -A core worker --loglevel=info --pool=solo # local test
