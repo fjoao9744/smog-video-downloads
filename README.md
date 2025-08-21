@@ -40,3 +40,9 @@ Essa aplicação é exatamente isso: simples, rápida e eficaz. 🚀
 ### Passo 1 - Instalar dependências
 ```bash
 pip install -r requirements.txt
+```
+
+### Passo 2 - Rodar o Docker-compose
+```bash
+docker-compose up -d
+```
