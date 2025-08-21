@@ -11,9 +11,7 @@ def index(request):
         
         task = dowload_videos.delay(url)
         
-        
         return render(request, "index.html", {"task_id": task.id})
-    
     return render(request, "index.html")
         
 def download(request, video_id):

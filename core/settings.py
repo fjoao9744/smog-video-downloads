@@ -97,10 +97,13 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-CELERY_BROKER_URL = 'amqp://guest:guest@rabbitmq:5672//'
+# Com Docker-compose
+CELERY_BROKER_URL = 'amqp://guest:guest@rabbitmq:5672//' 
 CELERY_RESULT_BACKEND = 'redis://redis:6379/0'
 
-# CELERY_BROKER_URL = 'amqp://guest:guest@localhost:5672//'   # RabbitMQ local
-# CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'         # Redis local
+# sem o Docker-compose
+# CELERY_BROKER_URL = 'amqp://guest:guest@localhost:5672//'
+# CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
 
-# celery -A core worker --loglevel=info --pool=solo # local test
+# Comando pra ativar o celery
+# celery -A core worker --loglevel=info --pool=solo
